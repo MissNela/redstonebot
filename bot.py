@@ -34,21 +34,7 @@ async def on_ready():
 async def warn(ctx, userName: discord.User, *, message:str):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
     
-    embed = discord.Embed(color = 0xB22222,
-        
-        title = "Warning",
-        description = """ __**You has been warned!**__
-        User warned:
-        ``{0}``
-        Moderator:
-        ``{1}`` 
-        Reason:
-        ``{2}``""".format(userName, ctx.message.author, message)
-        
-)
-    await client.send_message(userName, embed=embed)
- 
-
+    
     embed = discord.Embed(color = 0xB22222, title = "Warning")
     embed.add_field(name = "User Warned", value = "{0}".format(userName), inline=False)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
@@ -118,10 +104,10 @@ async def modhelp():
 @commands.has_permissions(kick_members=True)     
 async def kick(ctx,user:discord.Member):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
-    embed = discord.Embed(title = "Ban", color = 0xFF4500)
+    embed = discord.Embed(title = "Kick", color = 0xFF4500)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
-    embed.add_field(name="User",value="{0}".format(userName), inline=False)
-    embed.add_field(name="Reason",value="{0}".format(message), inline=False)
+    embed.add_field(name="User",value= "{0}".format(userName), inline=False)
+    embed.add_field(name="Reason",value= "{0}".format(message), inline=False)
 
 
     if user.server_permissions.kick_members:
@@ -143,8 +129,8 @@ async def ban(ctx,user:discord.Member):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
     embed = discord.Embed(title = "Ban", color = 0xFF4500)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
-    embed.add_field(name="User",value="{0}".format(userName), inline=False)
-    embed.add_field(name="Reason",value="{0}".format(message), inline=False)
+    embed.add_field(name="User",value= "{0}".format(userName), inline=False)
+    embed.add_field(name="Reason",value= "{0}".format(message), inline=False)
 
     if user.server_permissions.ban_members:
         await client.say('**He is mod/admin and i am unable to ban him/her! On/Ona je mod/admin a nemam opravnění ji zabanovat!**')
