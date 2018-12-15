@@ -124,12 +124,32 @@ async def kick(ctx,user:discord.Member):
     
     try:
         await client.kick(user)
-        await client.say(user.name+' was kicked. Good bye '+user.name+'! With reason: {0}'.format(message))
+        await client.say(user.name+" was kicked. Good bye "+user.name+"! With reason: {0}".format(message))
         await client.delete_message(ctx.message)
 
     except discord.Forbidden:
         await client.say('Permission denied.')
         return
+    
+@client.command(pass_context=True)  
+@commands.has_permissions(ban_members=True)      
+async def ban(ctx,user:discord.Member):
+
+    if user.server_permissions.ban_members:
+        await client.say('**He is mod/admin and i am unable to ban him/her! On/Ona je mod/admin a nemam opravnění ji zabanovat!**')
+        return
+
+    try:
+        await client.ban(user)
+        await client.say(user.name+' was banned with reason: {0}. Good bye '.format(message), +user.name+'!')
+
+    except discord.Forbidden:
+
+        await client.say('Permission denied.')
+        return
+    except discord.HTTPException:
+        await client.say('ban failed.')
+        return	
     
 @client.command()
 async def help():
