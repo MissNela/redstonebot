@@ -28,8 +28,43 @@ async def on_ready():
     
     
 
+@client.command(pass_context = True)
+@commands.has_permissions(kick_members=True)
 
+async def warn(ctx, userName: discord.User, *, message:str):
+    channel = discord.utils.get(client.get_all_channels(), name='logs')
+    
+    embed = discord.Embed(color = 0xB22222,
+        
+        title = "Warning",
+        description = """ __**You has been warned!**__
+        User warned:
+        ``{0}``
+        Moderator:
+        ``{1}`` 
+        Reason:
+        ``{2}``""".format(userName, ctx.message.author, message)
+        
+)
+    await client.send_message(userName, embed=embed)
+ 
 
+    embed = discord.Embed(color = 0xB22222, title = "Warning")
+    embed.add_field(name = "User Warned", value = "{0}".format(userName), inline=False)
+    embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
+    embed.add_field(name = "Reason", value = "{0}".format(message), inline=False)
+ 
+    await client.send_message(channel, embed=embed)
+    
+@client.command()
+async def modhelp():
+    embed = discord.Embed(title = "Help Pro/For Mods", color = 0xDC143C)
+    embed.add_field(name = "/warn", value = "Použití/Usage: /warn @user Reason",inline=False)
+    embed.add_field(name = "/kick", value = "Použití/Usage: /kick @user Reason",inline=False)
+    embed.add_field(name = "/ban", value = "Použití/Usage: /ban @user Reason",inline=False)
+    embed.add_field(name = "/clear", value = "Použití/Usage: /clear 1-∞",inline=False)
+    embed.set_footer(text = "Bota udělala N  E  L  A™#8429")
+    await client.say(embed=embed)
 
 @client.command()
 async def help():
