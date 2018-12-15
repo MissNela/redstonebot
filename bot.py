@@ -106,7 +106,7 @@ async def kick(ctx,user:discord.Member):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
     embed = discord.Embed(title = "Kick", color = 0xFF4500)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
-    embed.add_field(name="User",value= "{0}".format(userName), inline=False)
+    embed.add_field(name="User",value= "{0}".format(user), inline=False)
     embed.add_field(name="Reason",value= "{0}".format(message), inline=False)
 
 
