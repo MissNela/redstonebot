@@ -38,4 +38,4 @@ async def help():
     embed.add_field(name = "/modhelp", value = "Ukáže/Shows mod help", inline = False) #warn, kick, ban, unban, clear
     await client.say(embed=embed)
     
-client.run(os.getenv("BOR_TOKEN"))
+client.run(os.getenv("BOT_TOKEN"))
