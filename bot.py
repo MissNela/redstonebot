@@ -93,11 +93,11 @@ async def clear(ctx, number):
 async def modhelp():
     embed = discord.Embed(title = "Help Pro/For Mods", color = 0xDC143C)
     embed.add_field(name = "/warn", value = "Použití/Usage: /warn @user Reason",inline=False)
-    embed.add_field(name = "/kick", value = "Použití/Usage: /kick @user Reason",inline=False)
-    embed.add_field(name = "/ban", value = "Použití/Usage: /ban @user Reason",inline=False)
+    embed.add_field(name = "/kick", value = "Použití/Usage: /kick @user",inline=False)
+    embed.add_field(name = "/ban", value = "Použití/Usage: /ban @user ",inline=False)
     embed.add_field(name = "/clear", value = "Použití/Usage: /clear 1-∞",inline=False)
     embed.add_field(name = "/announce", value = "Oznámí něco, Announce Something",inline=False)
-    embed.set_footer(text = "Bota udělala N  E  L  A™#8429 Bot made by N  E  L  A™#8429")
+    embed.set_footer(text = "Bota udělala/Bot made by N  E  L  A™#8429")
     await client.say(embed=embed)
 
 @client.command(pass_context=True)  
@@ -107,8 +107,7 @@ async def kick(ctx,user:discord.Member):
     embed = discord.Embed(title = "Kick", color = 0xFF4500)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
     embed.add_field(name = "User", value= "{0}".format(user), inline=False)
-    embed.add_field(name = "Reason", value= "{0}".format(ctx.message), inline=False)
-
+    
 
     if user.server_permissions.kick_members:
         await client.say('**He is mod/admin and i am unable to kick him/her! On/ona Je admin/ka nebo mod a nemam op ji kicknout!**')
@@ -130,8 +129,7 @@ async def ban(ctx,user:discord.Member):
     embed = discord.Embed(title = "Ban", color = 0xFF4500)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
     embed.add_field(name = "User", value = "{0}".format(user), inline=False)
-    embed.add_field(name = "Reason", value = "{0}".format(ctx.message), inline=False)
-
+    
     if user.server_permissions.ban_members:
         await client.say('**He is mod/admin and i am unable to ban him/her! On/Ona je mod/admin a nemam opravnění ji zabanovat!**')
         return
