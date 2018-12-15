@@ -79,7 +79,30 @@ async def announce(ctx, userName: discord.User, *, message:str):
         
     await client.send_message(channel, "@everyone", embed=embed)
     
-
+@client.command(pass_context = True)
+@commands.has_permissions(manage_messages=True)  
+async def clear(ctx, number):
+ 
+    if ctx.message.author.server_permissions.manage_messages:
+         mgs = [] #Empty list to put all the messages in the log
+         number = int(number) #Converting the amount of messages to delete to an integer
+    async for x in client.logs_from(ctx.message.channel, limit = number+1):
+        mgs.append(x)            
+       
+    try:
+        await client.delete_messages(mgs)          
+        await client.say(str(number)+' messages deleted')
+     
+    except discord.Forbidden:
+        await client.say(embed=Forbidden)
+        return
+    except discord.HTTPException:
+        await client.say('clear failed.')
+        return         
+   
+ 
+    await client.delete_messages(mgs)
+    
 @client.command()
 async def modhelp():
     embed = discord.Embed(title = "Help Pro/For Mods", color = 0xDC143C)
@@ -91,6 +114,23 @@ async def modhelp():
     embed.set_footer(text = "Bota udělala N  E  L  A™#8429 Bot made by N  E  L  A™#8429")
     await client.say(embed=embed)
 
+@client.command(pass_context=True)  
+@commands.has_permissions(kick_members=True)     
+async def kick(ctx,user:discord.Member):
+
+    if user.server_permissions.kick_members:
+        await client.say('**He is mod/admin and i am unable to kick him/her! On/ona Je admin/ka nebo mod a nemam op ji kicknout!**')
+        return
+    
+    try:
+        await client.kick(user)
+        await client.say(user.name+' was kicked. Good bye '+user.name+'! With reason: {0}'.format(message))
+        await client.delete_message(ctx.message)
+
+    except discord.Forbidden:
+        await client.say('Permission denied.')
+        return
+    
 @client.command()
 async def help():
     embed = discord.Embed(title = "Help", color = 0x4B0082)
