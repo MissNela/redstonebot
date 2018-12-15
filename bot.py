@@ -117,6 +117,7 @@ async def modhelp():
 @client.command(pass_context=True)  
 @commands.has_permissions(kick_members=True)     
 async def kick(ctx,user:discord.Member):
+    channel = discord.utils.get(client.get_all_channels(), name='logs')
 
     if user.server_permissions.kick_members:
         await client.say('**He is mod/admin and i am unable to kick him/her! On/ona Je admin/ka nebo mod a nemam op ji kicknout!**')
@@ -124,7 +125,7 @@ async def kick(ctx,user:discord.Member):
     
     try:
         await client.kick(user)
-        await client.say(user.name+" was kicked. Good bye "+user.name+"! With reason: {0}".format(message))
+        await client.send_message(channel, embed=embed) was kicked. Good bye "+user.name+"! With reason: {0}".format(message))
         await client.delete_message(ctx.message)
 
     except discord.Forbidden:
@@ -134,6 +135,11 @@ async def kick(ctx,user:discord.Member):
 @client.command(pass_context=True)  
 @commands.has_permissions(ban_members=True)      
 async def ban(ctx,user:discord.Member):
+    channel = discord.utils.get(client.get_all_channels(), name='logs')
+    embed = discord.Embed(title = "Ban", color = 0xFF4500)
+    embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
+    embed.add_field(name="User",value="{0}".format(userName), inline=False)
+    embed.add_field(name="Reason",value="{0}".format(message), inline=False)
 
     if user.server_permissions.ban_members:
         await client.say('**He is mod/admin and i am unable to ban him/her! On/Ona je mod/admin a nemam opravnění ji zabanovat!**')
@@ -141,7 +147,7 @@ async def ban(ctx,user:discord.Member):
 
     try:
         await client.ban(user)
-        await client.say(user.name+' was banned with reason: {0}. Good bye '.format(message), +user.name+'!')
+        await client.send_message(channel, embed=embed)
 
     except discord.Forbidden:
 
