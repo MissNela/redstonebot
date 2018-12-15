@@ -118,6 +118,11 @@ async def modhelp():
 @commands.has_permissions(kick_members=True)     
 async def kick(ctx,user:discord.Member):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
+    embed = discord.Embed(title = "Ban", color = 0xFF4500)
+    embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
+    embed.add_field(name="User",value="{0}".format(userName), inline=False)
+    embed.add_field(name="Reason",value="{0}".format(message), inline=False)
+
 
     if user.server_permissions.kick_members:
         await client.say('**He is mod/admin and i am unable to kick him/her! On/ona Je admin/ka nebo mod a nemam op ji kicknout!**')
@@ -125,7 +130,7 @@ async def kick(ctx,user:discord.Member):
     
     try:
         await client.kick(user)
-        await client.send_message(channel, embed=embed) was kicked. Good bye "+user.name+"! With reason: {0}".format(message))
+        await client.send_message(channel, embed=embed)
         await client.delete_message(ctx.message)
 
     except discord.Forbidden:
