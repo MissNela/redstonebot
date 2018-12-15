@@ -29,7 +29,7 @@ async def on_ready():
     
 
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True)
+@commands.has_permissions(manage_messages=True)
 
 async def warn(ctx, userName: discord.User, *, message:str):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
@@ -55,7 +55,31 @@ async def warn(ctx, userName: discord.User, *, message:str):
     embed.add_field(name = "Reason", value = "{0}".format(message), inline=False)
  
     await client.send_message(channel, embed=embed)
+   
+@client.command(pass_context = True)
+@commands.has_permissions(kick_members=True)
+
+async def announce(ctx, userName: discord.User, *, message:str):
+    channel = discord.utils.get(client.get_all_channels(), name='announcements')
     
+    embed = discord.Embed(
+        
+        title = "Succesful!",
+        description = """ __**Announce has been successfully made!**__"""
+        
+)
+    await client.delete_message(ctx.message)
+    await client.send_message(userName, embed=embed)
+ 
+
+    
+    embed = discord.Embed(title = "New Announcement! Nové Oznámení!", color = 0xFFFF00)
+    embed.add_field(name = "Announcement:", value = "{0}".format(message), inline=False)
+    embed.add_field(name = "Announced by:", value = "{0}".format(ctx.message.author), inline=False)
+        
+    await client.send_message(channel, "@everyone", embed=embed)
+    
+
 @client.command()
 async def modhelp():
     embed = discord.Embed(title = "Help Pro/For Mods", color = 0xDC143C)
@@ -63,7 +87,8 @@ async def modhelp():
     embed.add_field(name = "/kick", value = "Použití/Usage: /kick @user Reason",inline=False)
     embed.add_field(name = "/ban", value = "Použití/Usage: /ban @user Reason",inline=False)
     embed.add_field(name = "/clear", value = "Použití/Usage: /clear 1-∞",inline=False)
-    embed.set_footer(text = "Bota udělala N  E  L  A™#8429")
+    embed.add_field(name = "/announce", value = "Oznámí něco, Announce Something",inline=False)
+    embed.set_footer(text = "Bota udělala N  E  L  A™#8429 Bot made by N  E  L  A™#8429")
     await client.say(embed=embed)
 
 @client.command()
