@@ -1,0 +1,5 @@
+discord.py
+PyNaCl
+asyncio
+status
+youtube_dl
