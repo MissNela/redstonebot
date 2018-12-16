@@ -232,7 +232,7 @@ async def userinfo(ctx, user: discord.Member):
     await client.say(embed=embed)
  
 @client.command()
-@commands.has_permissions(administrator=True)
+
 async def updates():
    
     embed = discord.Embed(title = "New Update!", color = 0x00BFFF)
