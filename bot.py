@@ -169,9 +169,9 @@ async def ping(ctx):
     ms = (t.timestamp-ctx.message.timestamp).total_seconds() * 1000
     await client.edit_message(t, new_content=':ping_pong: Pong! Actual ping: {}ms'.format(int(ms)))
     
-@client.command()
+@client.command(pass_context=True)
 async def amiowner():
-    if "523481381486198790" in [role.id for role in message.author.roles]:
+    if "Redstone Master" in [role.name for role in message.author.roles]:
         await client.say("YOU ARE AN OWNER! MA LORD!")
     else:
         await client.say("YOU ARE NOT MY OWNER GO FUCK URSELF!")
