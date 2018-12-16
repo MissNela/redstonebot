@@ -176,5 +176,10 @@ async def amiowner():
     else:
         await client.say("YOU ARE NOT MY OWNER GO FUCK URSELF!")
         
+@client.command()
+async def set_prefix(self, prefix):
     
+    self.command_prefix = prefix
+    await self.change_presence(game=discord.Game(name='{}help for help'.format(prefix)))
+
 client.run(os.getenv("BOT_TOKEN"))
