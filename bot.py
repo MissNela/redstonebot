@@ -23,6 +23,7 @@ client.remove_command('help')
 
 @client.event
 async def on_ready():
+    channel = discord.utils.get(client.get_all_channels(), name='announcements')
     await client.change_presence(game=discord.Game(name= "Prefix: /"))
     print("The bot is online and connected with Discord!") 
     await client.say("``Im here and ready!!``")
