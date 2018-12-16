@@ -234,6 +234,7 @@ async def userinfo(ctx, user: discord.Member):
 @client.command()
 
 async def updates():
+    channel = discord.utils.get(client.get_all_channels(), name="announcements")
    
     embed = discord.Embed(title = "New Update!", color = 0x00BFFF)
     embed.add_field(name = "Userinfo", value = "We added ``/userinfo`` command to get info about user!",inline=False)
