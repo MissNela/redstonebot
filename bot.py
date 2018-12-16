@@ -25,6 +25,7 @@ client.remove_command('help')
 async def on_ready():
     await client.change_presence(game=discord.Game(name= "Prefix: /"))
     print("The bot is online and connected with Discord!") 
+    await client.say("``Im here and ready!!``")
     
 def owner(ctx):
     return ctx.message.author.id == "342364288310312970"
@@ -47,6 +48,8 @@ async def warn(ctx, userName: discord.User, *, message:str):
 @commands.check(owner)
 async def restart():
     await client.logout()
+    await client.say("```restarting...```")
+    
 
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
