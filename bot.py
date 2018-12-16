@@ -35,7 +35,7 @@ async def warn(ctx, userName: discord.User, *, message:str):
     channel = discord.utils.get(client.get_all_channels(), name='logs')
     
     
-    embed = discord.Embed(color = 0xB22222, title = "Warning")
+    embed = discord.Embed(color = 0xB22222, title = "User warned")
     embed.add_field(name = "User Warned", value = "{0}".format(userName), inline=False)
     embed.add_field(name = "Moderator", value = "{0}".format(ctx.message.author), inline=False)
     embed.add_field(name = "Reason", value = "{0}".format(message), inline=False)
@@ -59,7 +59,7 @@ async def announce(ctx, userName: discord.User, *, message:str):
  
 
     
-    embed = discord.Embed(title = "New Announcement! Nové Oznámení!", color = 0xFFFF00)
+    embed = discord.Embed(title = "New Announcement!", color = 0xFFFF00)
     embed.add_field(name = "Announcement:", value = "{0}".format(message), inline=False)
     embed.add_field(name = "Announced by:", value = "{0}".format(ctx.message.author), inline=False)
         
@@ -90,13 +90,14 @@ async def clear(ctx, number):
     await client.delete_messages(mgs)
     
 @client.command()
+@commands.has_permissions(kick_members=True)
 async def modhelp():
-    embed = discord.Embed(title = "Help Pro/For Mods", color = 0xDC143C)
-    embed.add_field(name = "/warn", value = "Použití/Usage: /warn @user Reason",inline=False)
-    embed.add_field(name = "/kick", value = "Použití/Usage: /kick @user",inline=False)
-    embed.add_field(name = "/ban", value = "Použití/Usage: /ban @user ",inline=False)
-    embed.add_field(name = "/clear", value = "Použití/Usage: /clear 1-∞",inline=False)
-    embed.add_field(name = "/announce", value = "Oznámí něco, Announce Something",inline=False)
+    embed = discord.Embed(title = "For Mods", color = 0xDC143C)
+    embed.add_field(name = "/warn", value = "Usage: /warn @user Reason",inline=False)
+    embed.add_field(name = "/kick", value = "Usage: /kick @user",inline=False)
+    embed.add_field(name = "/ban", value = "Usage: /ban @user ",inline=False)
+    embed.add_field(name = "/clear", value = "Usage: /clear 1-∞",inline=False)
+    embed.add_field(name = "/announce", value = "Announce Something",inline=False)
     embed.set_footer(text = "Bota udělala/Bot made by N  E  L  A™#8429")
     await client.say(embed=embed)
 
@@ -110,7 +111,7 @@ async def kick(ctx,user:discord.Member):
     
 
     if user.server_permissions.kick_members:
-        await client.say('**He is mod/admin and i am unable to kick him/her! On/ona Je admin/ka nebo mod a nemam op ji kicknout!**')
+        await client.say('**He is mod/admin and i am unable to kick him/her!**')
         return
     
     try:
@@ -131,7 +132,7 @@ async def ban(ctx,user:discord.Member):
     embed.add_field(name = "User", value = "{0}".format(user), inline=False)
     
     if user.server_permissions.ban_members:
-        await client.say('**He is mod/admin and i am unable to ban him/her! On/Ona je mod/admin a nemam opravnění ji zabanovat!**')
+        await client.say('**He is mod/admin and i am unable to ban him/her!**')
         return
 
     try:
@@ -149,8 +150,16 @@ async def ban(ctx,user:discord.Member):
 @client.command()
 async def help():
     embed = discord.Embed(title = "Help", color = 0x4B0082)
-    embed.add_field(name = "========", value = "=====================", inline=False)
-    embed.add_field(name = "/modhelp", value = "Ukáže/Shows mod help", inline = False) #warn, kick, ban, unban, clear
+    embed.add_field(name = "/ghelp", value = "Shows general help", inline=False)
+    embed.add_field(name = "/modhelp", value = "Shows mod help", inline = False) #warn, kick, ban, unban, clear
+    await client.say(embed=embed)
+    
+@client.command()
+async def ghelp():
+    embed = discord.Embed(title = "General help for everyone!", color = 0x66CC33)
+    embed.add_field(name = "/userinfo", value = "Shows info about user!", inline=True)
+    embed.add_field(name = "/info", value = "Shows info about this server!", inlinr=True)
+    embed.set_footer(text = "Help summoned by {0}".format(ctx.message.author))
     await client.say(embed=embed)
     
 client.run(os.getenv("BOT_TOKEN"))
