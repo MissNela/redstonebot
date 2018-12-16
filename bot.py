@@ -154,12 +154,12 @@ async def help():
     embed.add_field(name = "/modhelp", value = "Shows mod help", inline = False) #warn, kick, ban, unban, clear
     await client.say(embed=embed)
     
-@client.command(pass_context=True)
+@client.command(pass_context = True)
 async def ghelp():
     embed = discord.Embed(title = "General help for everyone!", color = 0x66CC33)
     embed.add_field(name = "/userinfo", value = "Shows info about user!", inline=True)
     embed.add_field(name = "/info", value = "Shows info about this server!", inline=True)
-    embed.set_footer(text = "Help summoned by {0}".format(ctx.message.author))
+    embed.set_footer(text = "Help summoned by {0}".format(message.author))
     await client.say(embed=embed)
     
 client.run(os.getenv("BOT_TOKEN"))
