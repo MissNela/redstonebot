@@ -26,7 +26,8 @@ async def on_ready():
     await client.change_presence(game=discord.Game(name= "Prefix: /"))
     print("The bot is online and connected with Discord!") 
     
-    
+def owner(ctx):
+    return ctx.message.author.id == "342364288310312970"
 
 @client.command(pass_context = True)
 @commands.has_permissions(manage_messages=True)
@@ -42,6 +43,11 @@ async def warn(ctx, userName: discord.User, *, message:str):
  
     await client.send_message(channel, embed=embed)
    
+@client.command(pass_context = True)
+@commands.check(owner)
+async def restart():
+    await client.logout()
+
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
 
@@ -181,5 +187,16 @@ async def set_prefix(self, prefix):
     
     self.command_prefix = prefix
     await self.change_presence(game=discord.Game(name='{}help for help'.format(prefix)))
+    
+@client.command()
+async def updates():
+    embed = discord.Embed(title = "New Update!", color = 0x00BFFF)
+    embed.add_field(name = "Userinfo", value = "We added ``/userinfo`` command to get info about user!", inline=False)
+    embed.add_field(name = "info", value = "We added ``/info`` to get info about server!", inline=False)
+    embed.add_field(name = "#Developer Commands#", value = " ", inline=False)
+    embed.add_field(name = "restart", value = "Developer can restart bot with ``/restart`` cmd if needed.",inline=False)
+    embed.add_field(name = "&Preparing&", value = "Preparing __**Redstone Bot Premium**__!!", inline=False)
+    embed.set_footer(text = "Bot made by N  E  L  A#8429 | Redstone commands preparing!")
+    await client.say("@everyone", embed=embed, "@here")
 
 client.run(os.getenv("BOT_TOKEN"))
