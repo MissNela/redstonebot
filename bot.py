@@ -48,8 +48,9 @@ async def warn(ctx, userName: discord.User, *, message:str):
 @client.command(pass_context = True)
 @commands.check(owner)
 async def restart():
+    channel = discord.utils.get(client.get_all_channels(), name='announcements')
     await client.logout()
-    await client.send_message(message.channel, "```restarting...```")
+    await client.send_message(channel, "```restarting...```")
     
 
 @client.command(pass_context = True)
