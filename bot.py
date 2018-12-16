@@ -159,7 +159,7 @@ async def ghelp():
     embed = discord.Embed(title = "General help for everyone!", color = 0x66CC33)
     embed.add_field(name = "/userinfo", value = "Shows info about user!", inline=True)
     embed.add_field(name = "/info", value = "Shows info about this server!", inline=True)
-    embed.add_field(name = "Summonrf by:", value = "{0}".format(ctx.message.author), inline=False)
+    embed.add_field(name = "Summonrf by:", value = "{0}", inline=False)
     embed.set_footer(text = "Help made by Nela!")
     await client.say(embed=embed)
     
