@@ -154,7 +154,7 @@ async def help():
     embed.add_field(name = "/modhelp", value = "Shows mod help", inline = False) #warn, kick, ban, unban, clear
     await client.say(embed=embed)
     
-@client.command()
+@client.command(pass_context=True)
 async def ghelp():
     embed = discord.Embed(title = "General help for everyone!", color = 0x66CC33)
     embed.add_field(name = "/userinfo", value = "Shows info about user!", inline=True)
