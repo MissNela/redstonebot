@@ -104,6 +104,8 @@ async def modhelp():
     embed.add_field(name = "/ban", value = "Usage: /ban @user ",inline=False)
     embed.add_field(name = "/clear", value = "Usage: /clear 1-∞",inline=False)
     embed.add_field(name = "/announce", value = "Announce Something",inline=False)
+    embed.add_field(name = "/updates", value = "Shows update (Owner only)", inline=False)
+    embed.add_field(name = "/restart", vale = "Restarts a bot! Owner Only", inline=False)
     embed.set_footer(text = "Bota udělala/Bot made by N  E  L  A™#8429")
     await client.say(embed=embed)
 
@@ -129,6 +131,35 @@ async def kick(ctx,user:discord.Member):
         await client.say('Permission denied.')
         return
     
+@client.command(pass_context=True)  
+@commands.has_permissions(kick_members=True)     
+
+async def serverinfo(ctx):
+    '''Displays Info About The Server!'''
+
+    server = ctx.message.server
+    roles = [x.name for x in server.role_hierarchy]
+    role_length = len(roles)
+
+    if role_length > 50: #Just in case there are too many roles...
+        roles = roles[:50]
+        roles.append('>>>> Displaying[50/%s] Roles'%len(roles))
+
+    roles = ', '.join(roles);
+    channelz = len(server.channels);
+    time = str(server.created_at); time = time.split(' '); time= time[0];
+    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
+    join = discord.Embed(description= '%s '%(str(server)),title = 'Server Name', color = discord.Color((r << 16) + (g << 8) + b));
+    join.set_thumbnail(url = server.icon_url);
+    join.add_field(name = '__Owner__', value = str(server.owner) + '\n' + server.owner.id);
+    join.add_field(name = '__ID__', value = str(server.id))
+    join.add_field(name = '__Member Count__', value = str(server.member_count));
+    join.add_field(name = '__Text/Voice Channels__', value = str(channelz));
+    join.add_field(name = '__Roles (%s)__'%str(role_length), value = roles);
+    join.set_footer(text ='Created: %s'%time);
+
+    return await client.say(embed = join);
+
 @client.command(pass_context=True)  
 @commands.has_permissions(ban_members=True)      
 async def ban(ctx,user:discord.Member):
@@ -188,8 +219,22 @@ async def set_prefix(self, prefix):
     self.command_prefix = prefix
     await self.change_presence(game=discord.Game(name='{}help for help'.format(prefix)))
     
+@client.command(pass_context = True)
+async def userinfo(ctx, user: discord.Member):
+    r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
+    embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find.", color = discord.Color((r << 16) + (g << 8) + b))
+    embed.add_field(name="Name", value=user.name, inline=True)
+    embed.add_field(name="ID", value=user.id, inline=True)
+    embed.add_field(name="Status", value=user.status, inline=True)
+    embed.add_field(name="Highest role", value=user.top_role)
+    embed.add_field(name="Joined", value=user.joined_at)
+    embed.set_thumbnail(url=user.avatar_url)
+    await client.say(embed=embed)
+ 
 @client.command()
+@commands.has_permissions(administrator=True)
 async def updates():
+   
     embed = discord.Embed(title = "New Update!", color = 0x00BFFF)
     embed.add_field(name = "Userinfo", value = "We added ``/userinfo`` command to get info about user!", inline=False)
     embed.add_field(name = "info", value = "We added ``/info`` to get info about server!", inline=False)
@@ -197,6 +242,6 @@ async def updates():
     embed.add_field(name = "restart", value = "Developer can restart bot with ``/restart`` cmd if needed.",inline=False)
     embed.add_field(name = "&Preparing&", value = "Preparing __**Redstone Bot Premium**__!!", inline=False)
     embed.set_footer(text = "Bot made by N  E  L  A#8429 | Redstone commands preparing!")
-    await client.say("@everyone", embed=embed, "@here")
+    await client.say("@everyone @here", embed=embed)
 
 client.run(os.getenv("BOT_TOKEN"))
