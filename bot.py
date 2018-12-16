@@ -159,8 +159,14 @@ async def ghelp():
     embed = discord.Embed(title = "General help for everyone!", color = 0x66CC33)
     embed.add_field(name = "/userinfo", value = "Shows info about user!", inline=True)
     embed.add_field(name = "/info", value = "Shows info about this server!", inline=True)
-    embed.add_field(name = "Summonrf by:", value = "{0}", inline=False)
+   
     embed.set_footer(text = "Help made by Nela!")
     await client.say(embed=embed)
+    
+@client.command(pass_context=True)
+async def ping(ctx):
+    t = await client.say('Pong!')
+    ms = (t.timestamp-ctx.message.timestamp).total_seconds() * 1000
+    await client.edit_message(t, new_content=':ping_pong: Pong! Actual ping: {}ms'.format(int(ms)))
     
 client.run(os.getenv("BOT_TOKEN"))
