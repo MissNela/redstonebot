@@ -105,8 +105,8 @@ async def modhelp():
     embed.add_field(name = "/clear", value = "Usage: /clear 1-∞",inline=False)
     embed.add_field(name = "/announce", value = "Announce Something",inline=False)
     embed.add_field(name = "/updates", value = "Shows update (Owner only)", inline=False)
-    embed.add_field(name = "/restart", vale = "Restarts a bot! Owner Only", inline=False)
-    embed.set_footer(text = "Bota udělala/Bot made by N  E  L  A™#8429")
+    embed.add_field(name = "/restart", value = "Restarts a bot! Owner Only", inline=False)
+    embed.set_footer(text = "Bot made by N  E  L  A™#8429")
     await client.say(embed=embed)
 
 @client.command(pass_context=True)  
@@ -132,9 +132,9 @@ async def kick(ctx,user:discord.Member):
         return
     
 @client.command(pass_context=True)  
-@commands.has_permissions(kick_members=True)     
+     
 
-async def serverinfo(ctx):
+async def info(ctx):
     '''Displays Info About The Server!'''
 
     server = ctx.message.server
@@ -236,11 +236,11 @@ async def userinfo(ctx, user: discord.Member):
 async def updates():
    
     embed = discord.Embed(title = "New Update!", color = 0x00BFFF)
-    embed.add_field(name = "Userinfo", value = "We added ``/userinfo`` command to get info about user!", inline=False)
-    embed.add_field(name = "info", value = "We added ``/info`` to get info about server!", inline=False)
-    embed.add_field(name = "#Developer Commands#", value = " ", inline=False)
+    embed.add_field(name = "Userinfo", value = "We added ``/userinfo`` command to get info about user!",inline=False)
+    embed.add_field(name = "info", value = "We added ``/info`` to get info about server!",inline=False)
+    embed.add_field(name = "#Developer Commands#", value = " ",inline=False)
     embed.add_field(name = "restart", value = "Developer can restart bot with ``/restart`` cmd if needed.",inline=False)
-    embed.add_field(name = "&Preparing&", value = "Preparing __**Redstone Bot Premium**__!!", inline=False)
+    embed.add_field(name = "&Preparing&", value = "Preparing __**Redstone Bot Premium**__!!",inline=False)
     embed.set_footer(text = "Bot made by N  E  L  A#8429 | Redstone commands preparing!")
     await client.say("@everyone @here", embed=embed)
 
