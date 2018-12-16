@@ -242,6 +242,6 @@ async def updates():
     embed.add_field(name = "restart", value = "Developer can restart bot with ``/restart`` cmd if needed.",inline=False)
     embed.add_field(name = "&Preparing&", value = "Preparing __**Redstone Bot Premium**__!!",inline=False)
     embed.set_footer(text = "Bot made by N  E  L  A#8429 | Redstone commands preparing!")
-    await client.say("@everyone @here", embed=embed)
+    await client.say(embed=embed)
 
 client.run(os.getenv("BOT_TOKEN"))
