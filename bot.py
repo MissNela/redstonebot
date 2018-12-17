@@ -255,7 +255,7 @@ async def basics_1a():
     embed = discord.Embed(title = "Basics!", color = 0xA52A2A)
     embed.set_image(url = "https://cdn.discordapp.com/attachments/468928524267290634/524337297303404545/IMG_20181217_222651.jpg")
     embed.add_field(name = "We will use:", value = "Lever, Redstone and Redstone Lamp.",inline=False)
-    embed.set_footer(text = "Use */basics-1b* to continue!")
+    embed.set_footer(text = "Use */basics_1b* to continue!")
     await client.say(embed=embed)
 
 @client.command()
@@ -263,7 +263,15 @@ async def basics_1b():
     embed = discord.Embed(title = "Learning!", color = 0xA52A2A)
     embed.set_image(url = "https://cdn.discordapp.com/attachments/468928524267290634/524337299341705237/Screenshot_2018-12-17-22-21-20-161_com.mojang.minecraftpe.png")
     embed.add_field(name = "Put Lever and 2 redstones and lamp on end.", value = "This is the moste basic thing! If you flip a lever lamp will turn on!",inline=False)
-    embed.set_footer(text = "Use */basics-1c* to continue!")
-    await client.say("https://cdn.discordapp.com/attachments/468928524267290634/524337298695913487/Screenshot_2018-12-17-22-21-28-379_com.mojang.minecraftpe.png", embed=embed)
+    embed.set_footer(text = "Use */basics_1c* to continue!")
+    await client.say(embed=embed)
     
+@client.command()
+async def basics_1c():
+    basics = discord.Embed(title = "Redstone lenght", color = 0xA52A2A)
+    basics.set_image(url = "https://cdn.discordapp.com/attachments/468928524267290634/524337297303404544/Screenshot_2018-12-17-22-23-33-884_com.mojang.minecraftpe.png")
+    basics.add_field(name = "Redstone Lenght", value = "Redstone lenght is 15 blocks max! so if you are gonna you longer redstone then look on ``/basics_1d`` how to make redstoneto go more far!",inline=False)
+    basics.set_footer(text = "Use */basics_1d* to continue!")
+    await client.say(basics=embed)
+
 client.run(os.getenv("BOT_TOKEN"))
