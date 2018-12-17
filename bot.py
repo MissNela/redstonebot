@@ -272,6 +272,7 @@ async def basics_1c():
     basics.set_image(url = "https://cdn.discordapp.com/attachments/468928524267290634/524337297303404544/Screenshot_2018-12-17-22-23-33-884_com.mojang.minecraftpe.png")
     basics.add_field(name = "Redstone Lenght", value = "Redstone lenght is 15 blocks max! so if you are gonna you longer redstone then look on ``/basics_1d`` how to make redstoneto go more far!",inline=False)
     basics.set_footer(text = "Use */basics_1d* to continue!")
-    await client.say(basics=embed)
+    await client.say(embed=basics)
+                    
 
 client.run(os.getenv("BOT_TOKEN"))
